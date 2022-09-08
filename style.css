@@ -1,0 +1,66 @@
+body {
+    font-family: 'Source Sans Pro';
+}
+
+header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+}
+
+header h1 {
+    color: #d37bd8;
+}
+
+header div {
+    color: black;
+    display: flex
+}
+
+.quiz-container {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.question {
+    font-size: 2.7rem;
+}
+
+.quiz-answers {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 550px;
+}
+
+p {
+    font-size: 1.5rem;
+}
+
+button {
+    background: #85278a;
+    border-radius: 50px;
+    border-style: hidden;
+    color: #ffffff;
+    cursor: pointer;
+    font-size: 1em;
+    letter-spacing: 0.21px;
+    line-height: 16px;
+    max-width: 255px;
+    padding: 20px 52px;
+    text-align: center;
+    margin-top: 0.6em;
+}
+
+button:hover {
+    background-color: #8a518d;
+}
+
+.wrong-true-label {
+    color: gray;
+    font-style: italic;
+    margin-top: solid color gray;
+
+}
