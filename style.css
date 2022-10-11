@@ -54,7 +54,7 @@ h2 {
     display: none;
 }
 
-.btn {
+button {
     font-size: 2.4rem;
     padding: 2rem 0;
     width: 30rem;
@@ -66,14 +66,14 @@ h2 {
     border-radius: 50px;
 }
 
-.btn:hover {
+button:hover {
     cursor: pointer;
     box-shadow: 0 0.4rem 1.4rem 0 #6768ab;
     transition: transform 150ms;
     transform: scale(1.03);
 } 
 
-.btn [disabled] :hover {
+button [disabled] :hover {
     cursor: not-allowed;
     box-shadow: none;
     transform: none;
