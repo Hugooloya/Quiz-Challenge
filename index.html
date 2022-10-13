@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,18 +8,27 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-    <!-- <link rel="stylesheet" href="./style.css"/> -->
+    <link rel="stylesheet" href="./style.css" />
     <title>Quiz</title>
 </head>
+
 <body>
-    <div class="container">
-        <div id="home" class="flex-column flex-center">
-            <h1>Coding Quiz Challenge</h1>
-            <button class="startBtn">Start Quiz</button>
-            <!-- <button class="">High Score</button> -->
-            <h2 class="timer-count">0</h2>
+    <header>
+        <a href="">HIGHSCORES</a>
+        <div class="timer">
+            <div>Time:</div>
+            <div class="timer-count">0</div>
         </div>
+    </header>
+    <div class="main">
+        <h1>Coding Quiz Challenge</h1>
+        <button class="startBtn">Start Game</button>
+    </div>
+    <div id="quiz">
+        <div id="question"></div>
+        <div class="answer-container"></div>
     </div>
     <script src="./script.js"></script>
 </body>
+
 </html>

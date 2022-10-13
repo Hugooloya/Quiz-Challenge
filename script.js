@@ -1,70 +1,93 @@
 const questions = [
-    {
-        question: 'Commonly used data type DO not include:',
-        choice1: 'Strings',
-        choice2: 'Booleans',
-        choice3: 'Alerts',
-        choice4: 'Numbers',
-        answer: 3,
-    },
-    {
-        question: 'The condition in an if / else statement is enclosed with _____.',
-        choice1: 'Quotes',
-        choice2: 'Curly Brackets',
-        choice3: 'Parenthesis',
-        choice4: 'Square Brackets',
-        answer: 2,
-    },
-    {
-        question: 'Arrays in JavaScript can be used to store____.',
-        choice1: 'Numbers and strings',
-        choice2: 'Other arrays',
-        choice3: 'Booleans',
-        choice4: 'All of the above',
-        answer: 4,
-    },
-    {
-        question: 'String values must be enclosed within ____ when being assigned to variables.',
-        choice1: 'Commas',
-        choice2: 'Curly brackets',
-        choice3: 'Quotes',
-        choice4: 'Parenthesis',
-        answer: 3,
-    }
+  {
+    question: 'Commonly used data type DO not include:',
+    choices: ['Strings', 'Booleans', 'Alerts', 'Numbers'],
+    answer: 3,
+  },
+  {
+    question: 'The condition in an if / else statement is enclosed with _____.',
+    choices: ['Quotes', 'Curly Brackets', 'Parenthesis', 'Square Brackets'],
+    answer: 2,
+  },
+  {
+    question: 'Arrays in JavaScript can be used to store____.',
+    choices: ['Numbers and strings', 'Other arrays', 'Booleans', 'All of the above'],
+    answer: 4,
+  },
+  {
+    question: 'String values must be enclosed within ____ when being assigned to variables.',
+    choices: ['Commas', 'Curly brackets', 'Quotes', 'Parenthesis'],
+    answer: 3,
+  }
 ];
 
 const startBtn = document.querySelector('.startBtn');
 const timerElement = document.querySelector('.timer-count');
-let initialTime = 5;
+const quiz = document.querySelector('#quiz');
+const answerEl = document.querySelectorAll('.answer');
+const questionEl = document.querySelector('#question');
+let timer;
+let timerCount;
 let currentQuestion = 0;
+let score = 0;
+
+
+const startGame = () => {
+  timerCount = 5;
+  startTimer();
+  renderQuestions(currentQuestion);
+};
+
+const startTimer = () => {
+  timer = setInterval(function () {
+    timerCount--;
+    timerElement.textContent = timerCount;
+    if (timerCount === 0) {
+      gameOver();
+    }
+  }, 1000);
+};
+
+const renderQuestions = currentQuestion => {
+  if (currentQuestion < questions.length) {
+    questionEl.innerText = questions[currentQuestion].question;
+    renderAnswers(currentQuestion);
+  }
+};
+
+const renderAnswers = currentQuestion => {
+  const answerContainer = document.querySelector('.answer-container');
+  questions[currentQuestion].choices.forEach((choice, index) => {
+    let btn = document.createElement("button");
+    btn.innerText = (choice);
+    btn.setAttribute("id", index + 1);
+    btn.addEventListener('click', event => {
+      if (currentQuestion >= questions.length - 1) {
+        gameOver();
+      }
+      if (parseInt(event.target.id, 10) !== questions[currentQuestion].answer) {
+        timerCount -= 5;
+      }
+        currentQuestion += 1;
+        answerContainer.innerHTML = '';
+        renderQuestions(currentQuestion);
+    });
+    answerContainer.appendChild(btn);
+  });
+};
+
+const gameOver = () => {
+  clearInterval(timer);
+  score = timerCount;
+  renderResults();
+};
+
+const renderResults = () => {
+  
+
+}
 
 
 startBtn.addEventListener('click', () => {
-    startGame();
+  startGame();
 });
-
-function startTimer() {
-    // Sets timer
-    timer = setInterval(function() {
-      timerCount--;
-      timerElement.textContent = timerCount;
-      if (timerCount >= 0) {
-        // Tests if win condition is met
-        if (isWin && timerCount > 0) {
-          // Clears interval and stops timer
-          clearInterval(timer);
-          winGame();
-        }
-      }
-      // Tests if time has run out
-      if (timerCount === 0) {
-        // Clears interval
-        clearInterval(timer);
-        loseGame();
-      }
-    }, 1000);
-  }
-
-const renderQuestions = () => {
-    console.log(questions[currentQuestion]);
-}
