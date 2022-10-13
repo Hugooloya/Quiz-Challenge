@@ -13,15 +13,22 @@
 </head>
 
 <body>
-    <div class="container">
-        <div id="home" class="flex-column flex-center">
-            <h1>Coding Quiz Challenge</h1>
-
-            <a href="./game.html" class="btn">Start Quiz</a>
-            <a href="/highscores.html" id="highscore-btn" class="btn">High Score</a>
+    <header>
+        <a href="">HIGHSCORES</a>
+        <div class="timer">
+            <div>Time:</div>
+            <div class="timer-count">0</div>
         </div>
+    </header>
+    <div class="main">
+        <h1>Coding Quiz Challenge</h1>
+        <button class="startBtn">Start Game</button>
     </div>
-    <script src="./"></script>
+    <div id="quiz">
+        <div id="question"></div>
+        <div class="answer-container"></div>
+    </div>
+    <script src="./script.js"></script>
 </body>
 
 </html>
