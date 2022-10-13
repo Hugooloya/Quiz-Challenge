@@ -30,10 +30,11 @@ let timer;
 let timerCount;
 let currentQuestion = 0;
 let score = 0;
+let highScores = {};
 
 
 const startGame = () => {
-  timerCount = 5;
+  timerCount = 75;
   startTimer();
   renderQuestions(currentQuestion);
 };
@@ -62,15 +63,15 @@ const renderAnswers = currentQuestion => {
     btn.innerText = (choice);
     btn.setAttribute("id", index + 1);
     btn.addEventListener('click', event => {
-      if (currentQuestion >= questions.length - 1) {
-        gameOver();
-      }
       if (parseInt(event.target.id, 10) !== questions[currentQuestion].answer) {
         timerCount -= 5;
       }
-        currentQuestion += 1;
-        answerContainer.innerHTML = '';
-        renderQuestions(currentQuestion);
+      if (currentQuestion >= questions.length - 1) {
+        gameOver();
+      }
+      currentQuestion += 1;
+      answerContainer.innerHTML = '';
+      renderQuestions(currentQuestion);
     });
     answerContainer.appendChild(btn);
   });
@@ -79,15 +80,69 @@ const renderAnswers = currentQuestion => {
 const gameOver = () => {
   clearInterval(timer);
   score = timerCount;
-  renderResults();
+  renderResults(score);
 };
 
-const renderResults = () => {
-  
+const renderResults = score => {
+  let divElement = document.createElement('div');
+  divElement.classList.add('score-style');
+  divElement.innerHTML = '<h1>All Done!</h1>';
+  let pElement = `<h1>Your final score is</h1>
+                  <h1>${score}</h1>
+                  <p>Enter initials:</p>
+                  <input class="initialsBox" type="text">
+                  <button class="submitBtn">Submit</button>`;
+  divElement.insertAdjacentHTML('beforeend', pElement);
+  let containerDiv = document.querySelector('.scoreScreen');
+  containerDiv.appendChild(divElement);
+  const submitBtn = document.querySelector('.submitBtn');
+  submitBtn.addEventListener('click', event => {
+    const initialsBox = document.querySelector('.initialsBox');
+    if (initialsBox.value !== '') {
+      const previousValue = JSON.parse(localStorage.getItem('highScores'));
+      if (previousValue) {
+        highScores = { ...previousValue, [initialsBox.value]: score };
+      } else {
+        highScores = { [initialsBox.value]: score };
+      }
+      localStorage.setItem('highScores', JSON.stringify(highScores));
+    } else {
+      alert('Please enter your initials.');
+    };
+  });
+};
 
-}
+const renderHighscores = () => {
+  let counter = 0;
+  const hs = JSON.parse(localStorage.getItem('highScores'));
+  const hsContainer = document.querySelector('.highscoreScreen');
+  if (hs) {
+    for (const [key, value] of Object.entries(hs)) {
+      counter += 1;
+      let pElement = document.createElement('p');
+      pElement.classList.add(`highScore${counter}`);
+      pElement.innerText = `${ key } - ${ value }`;
+      hsContainer.appendChild(pElement);
+    };
+  }
+};
 
+const hsLink = document.querySelector('.highscores');
+hsLink.addEventListener('click', event => {
+  event.preventDefault();
+  renderHighscores();
+});
 
 startBtn.addEventListener('click', () => {
   startGame();
 });
+
+
+
+
+// To do: 
+// 1. Create Highscores h2
+// 2. Create go back and clear highscores buttons
+// 3. Write functions for go back and clear storage buttons
+// 4. Add logic for clear screens
+// 5. 
